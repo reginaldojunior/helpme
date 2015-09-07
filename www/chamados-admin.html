@@ -64,17 +64,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
 
         <script type="text/javascript">
-            onVerifyAccess();
-
-            function onVerifyAccess() 
-            {
-                if ($.cookie('email') == undefined) {
-                    window.location.href = 'index.html';
-                } else if ($.cookie('admin') == 1) {
-                    window.location.href = 'chamados-admin.html';
-                }
-            }   
-
             $(document).ready(function(){
                 $('.collapsible').collapsible({
                     accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
