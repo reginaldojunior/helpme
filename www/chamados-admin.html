@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <title>AjudeMe!</title>
+
+    </head>
+    <body>
+         
+        <nav>
+            <div class="nav-wrapper">
+                <a href="javascript:;" class="brand-logo">Ajude-Me!</a>
+            </div>
+        </nav>
+
+        <div class="row" style="margin-top: 30px; text-align: right;">
+            
+            <div class="col s12">
+                <div class="row">
+                    <a class="waves-effect waves-light btn-large blue"><i class="material-icons right">thumb_up</i>Alguém Proximo ?</a>
+                </div>
+            </div>
+
+            <div class="col s12">
+                <div class="row">
+                    <a class="waves-effect waves-light btn-large orange"><i class="material-icons right">chat_bubble</i>Por favor, Ajude-me!</a>
+                </div>
+            </div>
+            
+            <div class="col s12">
+                <div class="row">
+                    <a class="waves-effect waves-light btn-large red"><i class="material-icons right">surround_sound</i>Socorro!</a>
+                </div>
+            </div>
+            
+        </div>
+
+
+        <ul class="collapsible popout collapsible-accordion" data-collapsible="accordion">
+          <li>
+            <div class="collapsible-header"><i class="material-icons">library_books</i>Third</div>
+            <div class="collapsible-body" style=""><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></div>
+          </li>
+        </ul>
+
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+        <script type="text/javascript" src="js/cookie.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+
+        <script type="text/javascript">
+            onVerifyAccess();
+
+            function onVerifyAccess() 
+            {
+                if ($.cookie('email') == undefined) {
+                    window.location.href = 'index.html';
+                } else if ($.cookie('admin') == 1) {
+                    window.location.href = 'chamados-admin.html';
+                }
+            }   
+
+            $(document).ready(function(){
+                $('.collapsible').collapsible({
+                    accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+                });
+            });
+
+            $(".button-collapse").sideNav();
+        </script>
+
+        <style type="text/css">
+            .btn-large {
+                width: 100% !important;
+            }
+        </style>
+
+    </body>
+</html>
