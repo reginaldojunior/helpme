@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <title>AjudeMe!</title>
+
+    </head>
+    <body>
+         
+        <nav>
+            <div class="nav-wrapper">
+                <a href="javascript:;" class="brand-logo">Ajude-Me!</a>
+            </div>
+        </nav>
+
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email-login" type="text" class="validate">
+                        <label for="email-login">Email/Login</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="password-login" type="password" class="validate">
+                        <label for="password-login">Password</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s6">
+                        <p>
+                          <input name="admin" type="radio" id="admin" />
+                          <label for="admin">Administrador</label>
+                        </p>
+                    </div>
+                    <div class="input-field col s6">
+                        <p>
+                          <input name="admin" type="radio" id="parente" />
+                          <label for="parente">Parente</label>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <a href="javascript:loginUser();" class="btn waves-effect waves-light" type="submit" name="action" style="float: right; margin-right: 10px;">Login</a>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="row">
+            <br/>
+        </div>
+
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="nome-cadastro" type="text" class="validate">
+                        <label for="nome-cadastro">Nome</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="sobrenome-cadastro" type="text" class="validate">
+                        <label for="sobrenome-cadastro">Sobrenome</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email-cadastro" type="email" class="validate">
+                        <label for="email-cadastro">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="password-cadastro" type="password" class="validate">
+                        <label for="password-cadastro">Senha</label>
+                    </div>
+                </div>
+
+                <a href="javascript:cadastrarUser();" class="btn waves-effect waves-light" type="submit" name="action" style="float: right; margin-right: 10px;">Cadastrar</a>
+            </form>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+        <script type="text/javascript" src="js/cookie.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+        <script type="text/javascript">
+            onVerifyAccess();
+
+            function onVerifyAccess() 
+            {
+                if ($.cookie('email') != undefined) {
+                    if ($.cookie('admin') == 1) {
+                        window.location.href = 'chamados-admin.html';
+                    } else {
+                        window.location.href = 'chamados.html';
+                    }
+                }
+            }   
+
+            function cadastrarUser()
+            {
+                var first_name = $('#nome-cadastro').val()
+                  , last_name  = $('#sobrenome-cadastro').val()
+                  , email      = $('#email-cadastro').val()
+                  , password   = $('#password-cadastro').val()
+                  ;
+
+                if (first_name == '') {
+                    alert('Nome vazio');
+                    return;
+                }
+
+                if (last_name == '') {
+                    alert('Ultimo nome vazio');
+                    return;
+                }
+
+                if (email == '') {
+                    alert('Email vazio');
+                    return;
+                }
+
+                if (password == '') {
+                    alert('Senha vazio');
+                    return;
+                }
+
+                dados = {
+                    'nome1': first_name,
+                    'nome2': last_name,
+                    'email': email,
+                    'senha': password,
+                }
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    data: dados, 
+                    url: "http://api.ciawn.com.br/api/client/?email=winnersdevelopers@gmail.com&senha=chinelao",
+                    success: function(data) {
+                        alert('Sucesso, você será redirecionado para a pagina de categorias');
+
+                        $.cookie('email', dados['email'], { expires: 7 });
+                        $.cookie('senha', dados['senha'], { expires: 7 });
+                        $.cookie('admin', 1, { expires: 7 });
+
+                        window.location.href = 'chamados-admin.html';
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+            function loginUser()
+            {
+                if ($('#admin').is(':checked')) {
+                    url = "http://api.ciawn.com.br/api/client/?email=winnersdevelopers@gmail.com&senha=chinelao";
+
+                    var dados = {
+                        'email': $('#email-login').val(),
+                        'senha': $('#password-login').val()
+                    };
+
+                    if (dados['email'] == '' || dados['senha'] == '') 
+                    {
+                        alert('Os dados de e-mail e senha são obrigatorios para o Login');
+                        return;
+                    }
+                } else {
+                    url = "http://api.ciawn.com.br/api/parent/?email=winnersdevelopers@gmail.com&senha=chinelao";
+
+                    var dados = {
+                        'login': $('#email-login').val(),
+                        'senha': $('#password-login').val()
+                    };
+
+                    if (dados['login'] == '' || dados['senha'] == '') 
+                    {
+                        alert('Os dados de e-mail/login e senha são obrigatorios para o Login');
+                        return;
+                    }
+                }
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    data: dados, 
+                    url: url,
+                    success: function(data) {
+                        if (data.message == "error") {
+                            alert('Você ainda não tem cadastro');
+                            return;
+                        }
+
+
+                        if ($('#admin').is(':checked')) {
+                            $.cookie('email', dados['email'], { expires: 7 });
+                            $.cookie('senha', dados['senha'], { expires: 7 });
+                            $.cookie('admin', 1, { expires: 7 });
+                            window.location.href = 'chamados-admin.html';
+                        } else {
+                            $.cookie('email', dados['login'], { expires: 7 });
+                            $.cookie('senha', dados['senha'], { expires: 7 });
+                            $.cookie('admin', 0, { expires: 7 });
+                            window.location.href = 'chamados.html';
+                        }
+
+                    },
+                    error: function(data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+            $(".button-collapse").sideNav();
+        </script>
+
+    </body>
+</html>
