@@ -27,10 +27,10 @@
                 
                 <ul class="side-nav" id="mobile-demo">
                     <li>
-                        <a href="config.html">Configurações</a>
+                        <a href="parentes.html">Parentes</a>
                     </li>
                     <li>
-                        <a href="parentes.html">Parentes</a>
+                        <a href="javascript:logout();">Sair</a>
                     </li>
                 </ul>
 
@@ -76,6 +76,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
 
         <script type="text/javascript">
+
+            function logout() {
+                $.removeCookie('email');
+                $.removeCookie('senha');
+                $.removeCookie('admin');
+
+                window.location.href = 'index.html';
+            }
 
             $(document).ready(function(){
                 $('.collapsible').collapsible({
